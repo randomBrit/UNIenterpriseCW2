@@ -69,14 +69,19 @@ else
 fi
 
 # ----------------------------
-# Start or Restart App
+# Start Frontend and Backend
 # ----------------------------
-if command -v pm2 &> /dev/null; then
-    echo "Restarting application with PM2..."
-    pm2 restart site || pm2 start index.js --name site
-else
-    echo "PM2 not found, starting with Node.js..."
-    nohup node index.js > output.log 2>&1 &
-fi
+
+echo "Starting backend..."
+cd server
+nohup node server.js > ../server.log 2>&1 &
+cd ..
+
+echo "Starting frontend..."
+cd client
+nohup npm start > ../client.log 2>&1 &
+cd ..
 
 echo "Deployment completed successfully!"
+echo "Backend should be on http://localhost:5000"
+echo "Frontend should be on http://localhost:3000"
