@@ -27,8 +27,14 @@ function Home() {
     <Container className="my-5">
       <h1 className="text-center mb-4">Microfiction Library</h1>
       <Row>
-        <Col md={6} className="mb-4">
+        <Col md={8} className="mb-4">
           <StoryCard story={displayedStory} />
+        </Col>
+        <Col md={4}>
+          <SearchPanel
+            genres={['All', 'Fable', 'Spooky', 'Misc']}
+            onSearch={handleSearch}
+          />
         </Col>
       </Row>
     </Container>
