@@ -7,6 +7,7 @@ import Submit from './pages/Submit';
 function App() {
   return (
     <Router>
+      <NavigationBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/submit" element={<Submit />} />
