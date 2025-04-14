@@ -33,13 +33,16 @@ function StorySearch() {
 
 
   const handleSearch = (searchCriteria) => {
-    const minRating = parseFloat(searchCriteria.rating);
+    const minRating = parseFloat(searchCriteria.minimum_rating);
+    const safeMinRating = isNaN(minRating) ? 0 : minRating; //forces to 0 if not a number, shouldnt matter but better safe
+  
     const filtered = mockStories.filter(story => {
       return (
         (searchCriteria.genre === "All" || story.genre === searchCriteria.genre) &&
-        story.rating >= minRating
+        story.rating >= safeMinRating
       );
     });
+  
     setResults(filtered);
   };
 
