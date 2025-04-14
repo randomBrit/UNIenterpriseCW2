@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/home';
 import Submit from './pages/Submit';
 import NavigationBar from './components/NavigationBar';
+import StorySearch from './pages/StorySearch';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/submit" element={<Submit />} />
+        <Route path="/stories" element={<StorySearch />} />
       </Routes>
     </Router>
   );
