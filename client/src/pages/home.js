@@ -19,12 +19,15 @@ const mockStories = [
   }
 ];
 
+const publicStories = mockStories.filter(story => story.isPublic !== false); // assume public unless false
+const displayedStory = publicStories[0]; // only the first one
+
 function Home() {
   return (
     <Container className="my-5">
       <h1 className="text-center mb-4">Microfiction Library</h1>
       <Row>
-        {mockStories.map((story, index) => (
+        {displayedStory.map((story, index) => (
           <Col md={6} key={index} className="mb-4">
             <StoryCard story={story} />
           </Col>
