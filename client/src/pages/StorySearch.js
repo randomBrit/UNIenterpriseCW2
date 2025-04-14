@@ -30,9 +30,10 @@ const mockStories = [
 function StorySearch() {
   const [results, setResults] = useState(mockStories);
 
-  const minRating = parseFloat(searchCriteria.rating);
+
 
   const handleSearch = (searchCriteria) => {
+    const minRating = parseFloat(searchCriteria.rating);
     const filtered = mockStories.filter(story => {
       return (
         (searchCriteria.genre === "All" || story.genre === searchCriteria.genre) &&
