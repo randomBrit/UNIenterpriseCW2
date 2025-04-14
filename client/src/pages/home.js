@@ -27,11 +27,9 @@ function Home() {
     <Container className="my-5">
       <h1 className="text-center mb-4">Microfiction Library</h1>
       <Row>
-        {displayedStory.map((story, index) => (
-          <Col md={6} key={index} className="mb-4">
-            <StoryCard story={story} />
-          </Col>
-        ))}
+        <Col md={6} className="mb-4">
+          <StoryCard story={displayedStory} />
+        </Col>
       </Row>
     </Container>
   );
