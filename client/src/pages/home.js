@@ -23,11 +23,13 @@ const mockStories = [
 const publicStories = mockStories.filter(story => story.isPublic !== false); // assume public unless false
 const displayedStory = publicStories[0]; // only the first one
 
-const handleSearch = () => {
-  alert("Search clicked! (this is a placeholder)");
-};
 
 function Home() {
+  const handleSearch = (criteria) => {
+    // Placeholder for future backend interaction
+    alert("Search Request:\n" + JSON.stringify({ search: criteria }, null, 2));
+  };
+  
   return (
     <Container className="my-5">
       <h1 className="text-center mb-4">Microfiction Library</h1>
