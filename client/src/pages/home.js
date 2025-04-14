@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import StoryCard from '../components/StoryCard';
+import SearchPanel from '../components/SearchPanel';
 
 const mockStories = [
   {
@@ -21,6 +22,10 @@ const mockStories = [
 
 const publicStories = mockStories.filter(story => story.isPublic !== false); // assume public unless false
 const displayedStory = publicStories[0]; // only the first one
+
+const handleSearch = () => {
+  alert("Search clicked! (this is a placeholder)");
+};
 
 function Home() {
   return (
