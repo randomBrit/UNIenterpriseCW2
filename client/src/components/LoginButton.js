@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { auth, provider, signInWithPopup, signOut } from '../firebase';
+import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, provider } from '../firebase';
 
 function LoginButton() {
   const [user, setUser] = useState(null);
