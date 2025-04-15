@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { auth, provider } from '../firebase';
 import { signInWithPopup, signOut } from 'firebase/auth';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 function LoginButton() {
   const { user, setUser } = useAuth();
