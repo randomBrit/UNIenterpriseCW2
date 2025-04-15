@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
-import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from '../firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { useAuth } from '../context/AuthContext';
 
 function LoginButton() {
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useAuth();
 
   const handleLogin = async () => {
     try {
@@ -15,9 +16,13 @@ function LoginButton() {
     }
   };
 
-  const handleLogout = () => {
-    signOut(auth);
-    setUser(null);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
