@@ -5,6 +5,13 @@ import Home from './pages/home';
 import Submit from './pages/Submit';
 import NavigationBar from './components/NavigationBar';
 import StorySearch from './pages/StorySearch';
+import Dashboard from './pages/Dashboard';
+import { useAuth } from './contexts/AuthContext';
+
+const PrivateRoute = ({ children }) => {
+  const { currentUser } = useAuth();
+  return currentUser ? children : <Navigate to="/" />;
+};
 
 function App() {
   return (
@@ -14,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/submit" element={<Submit />} />
         <Route path="/stories" element={<StorySearch />} />
+        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       </Routes>
     </Router>
   );
