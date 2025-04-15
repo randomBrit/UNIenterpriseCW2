@@ -19,8 +19,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {/*!loading && children*/} {/* wait until auth check is done */}
-      <div>Loading...</div>
+      {!loading && children} {/* wait until auth check is done */}
     </AuthContext.Provider>
   );
 }
