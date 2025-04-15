@@ -2,13 +2,25 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  };
+  apiKey: "AIzaSyCW1sCSW91kAIFdIvS70oy0ibLFfRYWZTY",
+  authDomain: "microfiction-library-cls-cw.firebaseapp.com",
+  projectId: "microfiction-library-cls-cw",
+  storageBucket: "microfiction-library-cls-cw.firebasestorage.app",
+  messagingSenderId: "763481741706",
+  appId: "1:763481741706:web:318b28ae72c462e0b55073"
+};
+
+
+
+
+//#const firebaseConfig = {
+//#    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+//#    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+//#    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+//#    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+//#    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+//#    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+//#  };
 
 
   const app = initializeApp(firebaseConfig);
