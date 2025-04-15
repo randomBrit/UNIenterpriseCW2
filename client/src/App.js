@@ -5,7 +5,7 @@ import Home from './pages/home';
 import Submit from './pages/Submit';
 import NavigationBar from './components/NavigationBar';
 import StorySearch from './pages/StorySearch';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/DashBoard';
 import { useAuth } from './contexts/AuthContext';
 
 const PrivateRoute = ({ children }) => {
