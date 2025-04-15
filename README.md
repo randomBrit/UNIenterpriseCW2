@@ -10,3 +10,4 @@ sudo apt update
 sudo apt install -y nodejs npm
 chmod +x setup.sh
 ./setup.sh
+
