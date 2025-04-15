@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LoginButton from './LoginButton';
-import { useAuth } from '../context/AuthContext'; // make sure this path matches your actual folder name
+import { useAuth } from '../contexts/AuthContext'; // make sure this path matches your actual folder name
 
 
 function NavigationBar() {
