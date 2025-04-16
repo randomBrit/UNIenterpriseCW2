@@ -9,7 +9,10 @@ import Dashboard from './pages/DashBoard';
 import { useAuth } from './contexts/AuthContext';
 
 const PrivateRoute = ({ children }) => {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
+
+  if (loading) return null; // Or a spinner/loading screen
+
   return currentUser ? children : <Navigate to="/" />;
 };
 

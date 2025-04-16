@@ -1,16 +1,15 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { auth, provider } from '../firebase';
-import { signInWithPopup, signOut } from 'firebase/auth';
+import { signInWithRedirect , signOut } from 'firebase/auth';
 import { useAuth } from '../contexts/AuthContext';
 
 function LoginButton() {
-  const { user, setUser } = useAuth();
+  const { currentUser: user, setUser } = useAuth();
 
   const handleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error(error);
     }
