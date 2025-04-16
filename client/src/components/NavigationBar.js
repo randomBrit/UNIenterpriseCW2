@@ -18,7 +18,7 @@ function NavigationBar() {
         <Nav.Link as={Link} to="/">Home</Nav.Link>
         <Nav.Link as={Link} to="/submit">Submit</Nav.Link>
         <Nav.Link as={Link} to="/stories">Browse</Nav.Link>
-        {user && (
+        {currentUser && (
           <Nav.Link as={Link} to="/dashboard">My Dashboard</Nav.Link>
         )}
       </Nav>
