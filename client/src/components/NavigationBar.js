@@ -9,25 +9,25 @@ function NavigationBar() {
   const { user } = useAuth(); // grab user from context
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand as={Link} to="/">Microfiction Library</Navbar.Brand>
-        <Navbar.Toggle aria-controls="main-navbar" />
-        <Navbar.Collapse id="main-navbar">
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/submit">Submit</Nav.Link>
-            <Nav.Link as={Link} to="/stories">Browse</Nav.Link>
-
-            {user && (
-              <Nav.Link as={Link} to="/dashboard">My Dashboard</Nav.Link>
-            )}
-
-            <LoginButton />
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+<Navbar bg="dark" variant="dark" expand="lg">
+  <Container>
+    <Navbar.Brand as={Link} to="/">Microfiction Library</Navbar.Brand>
+    <Navbar.Toggle aria-controls="main-navbar" />
+    <Navbar.Collapse id="main-navbar">
+      <Nav className="me-auto">
+        <Nav.Link as={Link} to="/">Home</Nav.Link>
+        <Nav.Link as={Link} to="/submit">Submit</Nav.Link>
+        <Nav.Link as={Link} to="/stories">Browse</Nav.Link>
+        {user && (
+          <Nav.Link as={Link} to="/dashboard">My Dashboard</Nav.Link>
+        )}
+      </Nav>
+      <div className="d-flex align-items-center">
+        <LoginButton />
+      </div>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
   );
 }
 
