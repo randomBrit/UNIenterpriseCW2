@@ -28,7 +28,7 @@ function LoginButton() {
     <div className="text-end">
       {user ? (
         <>
-          <span className="me-2">Hi, {user.displayName}</span>
+          <span className="me-2 text-white">Hi, {user.displayName}</span>
           <Button variant="outline-danger" size="sm" onClick={handleLogout}>
             Sign Out
           </Button>
