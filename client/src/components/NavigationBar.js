@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContext'; // make sure this path matche
 
 
 function NavigationBar() {
-  const { user } = useAuth(); // grab user from context
+  const { currentUser } = useAuth(); // grab user from context
 
   return (
 <Navbar bg="dark" variant="dark" expand="lg">
