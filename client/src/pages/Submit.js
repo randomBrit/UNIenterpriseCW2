@@ -16,16 +16,37 @@ function Submit() {
     setStory((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const submittedStory = {
       ...story,
-      authorId: currentUser?.uid || 'guest',
+      authorId: currentUser?.uid,
     };
-
-    console.log('Submitted story (temp):', submittedStory);
-    // Later: send this to the backend via fetch/axios
+  
+    try {
+      const res = await fetch('/api/stories', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submittedStory),
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        alert('Story submitted successfully!');
+        console.log('New Story:', data.story);
+        setStory({ title: '', author: '', genre: '', content: '' });
+      } else {
+        console.error('Error:', data.message);
+        alert(`Submission failed: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('An unexpected error occurred.');
+    }
   };
 
   return (

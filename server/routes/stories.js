@@ -1,30 +1,29 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const Story = require('../models/Story');
 
-// GET all public stories
-router.get('/', async (req, res) => {
-  const stories = await Story.find({ isPublic: true }).sort({ createdAt: -1 });
-  res.json(stories);
+// TEMP in-memory store for now
+const stories = [];
+
+router.post('/', (req, res) => {
+  const { title, author, genre, content, authorId } = req.body;
+
+  if (!title || !content || !authorId) {
+    return res.status(400).json({ message: 'Missing required fields.' });
+  }
+
+  const newStory = {
+    id: stories.length + 1 + '', // basic string ID
+    title,
+    author,
+    genre,
+    content,
+    authorId
+  };
+
+  console.log('New story received:', newStory);//test feature
+  stories.push(newStory);
+
+  res.status(201).json({ message: 'Story submitted!', story: newStory });
 });
 
-// GET stories by authorId
-router.get('/user/:authorId', async (req, res) => {
-  const stories = await Story.find({ authorId: req.params.authorId });
-  res.json(stories);
-});
-
-// POST new story
-router.post('/', async (req, res) => {
-  const newStory = new Story(req.body);
-  await newStory.save();
-  res.status(201).json(newStory);
-});
-
-// DELETE a story
-router.delete('/:id', async (req, res) => {
-  await Story.findByIdAndDelete(req.params.id);
-  res.json({ message: "Story deleted" });
-});
-
-module.exports = router;
+export default router;
