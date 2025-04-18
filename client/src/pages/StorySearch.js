@@ -1,83 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import StoryCard from "../components/StoryCard";
 import SearchPanel from "../components/SearchPanel";
 
-const mockStories = [
-  {
-    title: "The Last Leaf",
-    author: "Anonymous",
-    genre: "Fable",
-    content: "In a town painted grey by winter, one final leaf clung to the branch...",
-    rating: 4.5
-  },
-  {
-    title: "Haunted Signal",
-    author: "SpookySue",
-    genre: "Spooky",
-    content: "Every midnight, the old radio clicked on by itself...",
-    rating: 3.8
-  },
-  {
-    title: "Moral Machine",
-    author: "TechieTom",
-    genre: "Misc",
-    content: "The AI paused. Who would it choose to save?",
-    rating: 4.2
-  },
-  {
-    title: "Whispers in the Fog",
-    author: "Clara Wren",
-    genre: "Mystery",
-    content: "The fog rolled in thicker than ever, hiding more than just the streetlights.",
-    rating: 4.2
-  },
-  {
-    title: "Starlit Covenant",
-    author: "Jonas Kade",
-    genre: "Science Fiction",
-    content: "In the year 3120, humanity's final hope lay dormant beneath Europa’s icy crust.",
-    rating: 3.8
-  },
-  {
-    title: "Beneath Crimson Leaves",
-    author: "Evelyn Hart",
-    genre: "Romance",
-    content: "Autumn had always been her favorite, but this year, the leaves fell with a promise.",
-    rating: 4.6
-  },
-  {
-    title: "The Hollow Pact",
-    author: "D.M. Corvin",
-    genre: "Fantasy",
-    content: "He made the deal with blood, never expecting the shadows to whisper back.",
-    rating: 4.0
-  },
-  {
-    title: "Last Exit to Eden",
-    author: "Sierra Vale",
-    genre: "Dystopian",
-    content: "She wasn’t supposed to remember the before-times, but the dreams said otherwise.",
-    rating: 3.5
-  }
-];
-
 function StorySearch() {
-  const [results, setResults] = useState(mockStories);
-  const genres = ["All", ...new Set(mockStories.map(story => story.genre))];
+  const [results, setResults] = useState([]);
+  const [allStories, setAllStories] = useState([]);
 
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const res = await fetch('/api/stories');
+        const data = await res.json();
+        setResults(data);
+        setAllStories(data);
+      } catch (err) {
+        console.error('Failed to fetch stories:', err);
+      }
+    };
+
+    fetchStories();
+  }, []);
+
+  const genres = ["All", ...new Set(allStories.map(story => story.genre))];
 
   const handleSearch = (searchCriteria) => {
     const minRating = parseFloat(searchCriteria.minimum_rating);
-    const safeMinRating = isNaN(minRating) ? 0 : minRating; //forces to 0 if not a number, shouldnt matter but better safe
-  
-    const filtered = mockStories.filter(story => {
+    const safeMinRating = isNaN(minRating) ? 0 : minRating;
+
+    const filtered = allStories.filter(story => {
       return (
         (searchCriteria.genre === "All" || story.genre === searchCriteria.genre) &&
         story.rating >= safeMinRating
       );
     });
-  
+
     setResults(filtered);
   };
 

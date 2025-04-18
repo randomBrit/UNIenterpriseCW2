@@ -27,4 +27,15 @@ router.post('/', (req, res) => {
   res.status(201).json({ message: 'Story submitted!', story: newStory });
 });
 
+router.get('/', (req, res) => {
+  const { authorId } = req.query;
+
+  if (authorId) {
+    const userStories = stories.filter(s => s.authorId === authorId);
+    return res.json(userStories);
+  }
+
+  res.json(stories);
+});
+
 export default router;
