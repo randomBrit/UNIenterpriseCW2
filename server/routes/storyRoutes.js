@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
+
 // TEMP in-memory store for now
 const stories = [];
 
