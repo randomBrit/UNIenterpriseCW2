@@ -10,4 +10,4 @@ const StorySchema = new mongoose.Schema({
   authorId: String, // Firebase UID
 }, { timestamps: true });
 
-module.exports = mongoose.model('Story', StorySchema);
+export default Story;
