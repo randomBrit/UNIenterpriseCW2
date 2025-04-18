@@ -3,7 +3,43 @@ const router = express.Router();
 
 
 // TEMP in-memory store for now
-const stories = [];
+const stories = [
+  {
+    "title": "Whispers in the Fog",
+    "author": "Clara Wren",
+    "genre": "Mystery",
+    "content": "The fog rolled in thicker than ever, hiding more than just the streetlights.",
+    "rating": 4.2
+  },
+  {
+    "title": "Starlit Covenant",
+    "author": "Jonas Kade",
+    "genre": "Science Fiction",
+    "content": "In the year 3120, humanity's final hope lay dormant beneath Europa’s icy crust.",
+    "rating": 3.8
+  },
+  {
+    "title": "Beneath Crimson Leaves",
+    "author": "Evelyn Hart",
+    "genre": "Romance",
+    "content": "Autumn had always been her favorite, but this year, the leaves fell with a promise.",
+    "rating": 4.6
+  },
+  {
+    "title": "The Hollow Pact",
+    "author": "D.M. Corvin",
+    "genre": "Fantasy",
+    "content": "He made the deal with blood, never expecting the shadows to whisper back.",
+    "rating": 4.0
+  },
+  {
+    "title": "Last Exit to Eden",
+    "author": "Sierra Vale",
+    "genre": "Dystopian",
+    "content": "She wasn’t supposed to remember the before-times, but the dreams said otherwise.",
+    "rating": 3.5
+  }
+];
 
 router.post('/', (req, res) => {
   const { title, author, genre, content, authorId } = req.body;
