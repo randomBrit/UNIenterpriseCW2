@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { useAuth } from '../contexts/AuthContext';
 
 function Submit() {
+  const { currentUser } = useAuth();
   const [story, setStory] = useState({
     title: '',
     author: '',
@@ -16,8 +18,14 @@ function Submit() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle the form submission
-    console.log('Story submitted:', story);
+
+    const submittedStory = {
+      ...story,
+      authorId: currentUser?.uid || 'guest',
+    };
+
+    console.log('Submitted story (temp):', submittedStory);
+    // Later: send this to the backend via fetch/axios
   };
 
   return (
@@ -35,12 +43,13 @@ function Submit() {
           />
         </Form.Group>
         <Form.Group controlId="formAuthor">
-          <Form.Label>Author</Form.Label>
+          <Form.Label>Author (Pseudonym)</Form.Label>
           <Form.Control
             type="text"
             name="author"
             value={story.author}
             onChange={handleChange}
+            required
           />
         </Form.Group>
         <Form.Group controlId="formGenre">
