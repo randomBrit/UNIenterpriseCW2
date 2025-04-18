@@ -26,4 +26,4 @@ router.post('/', (req, res) => {
   res.status(201).json({ message: 'Story submitted!', story: newStory });
 });
 
-export default router;
+export default Story;
