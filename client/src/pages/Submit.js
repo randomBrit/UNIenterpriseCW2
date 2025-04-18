@@ -33,15 +33,23 @@ function Submit() {
         body: JSON.stringify(submittedStory),
       });
   
-      const data = await res.json();
+      const text = await res.text(); // get raw response first
+      let data;
+  
+      try {
+        data = JSON.parse(text); // attempt to parse manually
+      } catch (jsonErr) {
+        console.error('Invalid JSON response:', text);
+        throw new Error('Server returned invalid JSON');
+      }
   
       if (res.ok) {
         alert('Story submitted successfully!');
         console.log('New Story:', data.story);
         setStory({ title: '', author: '', genre: '', content: '' });
       } else {
-        console.error('Error:', data.message);
-        alert(`Submission failed: ${data.message}`);
+        console.error('Backend error:', data.message || text);
+        alert(`Submission failed: ${data.message || text}`);
       }
     } catch (error) {
       console.error('Submission error:', error);
