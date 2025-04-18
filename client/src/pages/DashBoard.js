@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button, Card, Container } from 'react-bootstrap';
 
-const mockStories = [
-  { id: '1', title: 'First Story', content: 'Lorem ipsum...', authorId: '123' },
-  { id: '2', title: 'Another Tale', content: 'Dolor sit amet...', authorId: '456' },
-];
-
 export default function Dashboard() {
   const { currentUser } = useAuth();
+  const [userStories, setUserStories] = useState([]);
 
-  const userStories = mockStories.filter(
-    story => story.authorId === currentUser?.uid
-  );
+  useEffect(() => {
+    const fetchUserStories = async () => {
+      if (!currentUser?.uid) return;
+      try {
+        const res = await fetch(`/api/stories?authorId=${currentUser.uid}`);
+        const data = await res.json();
+        setUserStories(data);
+      } catch (err) {
+        console.error('Failed to fetch stories:', err);
+      }
+    };
+
+    fetchUserStories();
+  }, [currentUser]);
 
   return (
     <Container className="my-4">
@@ -33,4 +40,4 @@ export default function Dashboard() {
       )}
     </Container>
   );
-} 
+}
