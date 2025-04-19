@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import StoryCard from '../components/StoryCard';
 import SearchPanel from '../components/SearchPanel';
+import { useNavigate } from 'react-router-dom';
+
+//ui response 
 
 function Home({ user }) {
   const [displayedStory, setDisplayedStory] = useState(null); 
   const isLoggedIn = !!user;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStories = async () => {
@@ -30,7 +34,11 @@ function Home({ user }) {
   }, [isLoggedIn]);
 
   const handleSearch = (criteria) => {
-    alert("Search Request:\n" + JSON.stringify({ search: criteria }, null, 2));
+    const params = new URLSearchParams({
+      genre: criteria.genre,
+      minimum_rating: criteria.minimum_rating,
+    }).toString();
+    navigate(`/browse?${params}`);
   };
 
   return (
@@ -49,6 +57,17 @@ function Home({ user }) {
             genres={['All', 'Fable', 'Spooky', 'Misc']}
             onSearch={handleSearch}
           />
+          <Button variant="primary" className="mt-3 w-100" onClick={handleFakeSubmit}>
+            Submit a Microfiction
+          </Button>
+          {showSubmitPrompt && (
+          <Alert variant="info" className="mt-2">
+              Ready to share your own story?{' '}
+              <Link to="/submit" style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
+                Click here to post as a guest!
+              </Link>
+            </Alert>
+          )}
         </Col>
       </Row>
     </Container>
