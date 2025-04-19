@@ -21,6 +21,15 @@ export default function Dashboard() {
     fetchUserStories();
   }, [currentUser]);
 
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`/api/stories/${id}`, { method: 'DELETE' });
+      setStories(prev => prev.filter(story => story.id !== id));
+    } catch (err) {
+      console.error('Failed to delete story:', err);
+    }
+  };
+
   return (
     <Container className="my-4">
       <h2>Your Stories</h2>
@@ -33,7 +42,13 @@ export default function Dashboard() {
               <Card.Title>{story.title}</Card.Title>
               <Card.Text>{story.content}</Card.Text>
               <Button variant="outline-primary" size="sm" className="me-2">Edit</Button>
-              <Button variant="outline-danger" size="sm">Delete</Button>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={() => handleDelete(story.id)}
+              >
+                Delete
+              </Button>
             </Card.Body>
           </Card>
         ))
