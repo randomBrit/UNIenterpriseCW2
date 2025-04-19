@@ -57,17 +57,16 @@ function Home({ user }) {
             genres={['All', 'Fable', 'Spooky', 'Misc']}
             onSearch={handleSearch}
           />
-          <Button variant="primary" className="mt-3 w-100" onClick={handleFakeSubmit}>
+          <Button variant="primary" className="mt-3 w-100" as={Link} to="/submit">
             Submit a Microfiction
           </Button>
-          {showSubmitPrompt && (
+
           <Alert variant="info" className="mt-2">
-              Ready to share your own story?{' '}
-              <Link to="/submit" style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
-                Click here to post as a guest!
-              </Link>
-            </Alert>
-          )}
+            Ready to share your own story?{' '}
+            <Link to="/submit" style={{ textDecoration: 'underline', fontWeight: 'bold' }}>
+            Click here to post as a guest!
+            </Link>
+          </Alert>
         </Col>
       </Row>
     </Container>
