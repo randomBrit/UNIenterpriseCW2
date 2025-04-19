@@ -4,7 +4,7 @@ import StoryCard from '../components/StoryCard';
 import SearchPanel from '../components/SearchPanel';
 
 function Home() {
-  const [displayedStory, setDisplayedStory] = useState(null); // <- step 1
+  const [displayedStory, setDisplayedStory] = useState(null); 
 
   useEffect(() => {
     const fetchRandomStory = async () => {
@@ -14,14 +14,14 @@ function Home() {
 
         const publicStories = stories.filter(s => s.isPublic !== false);
         const randomIndex = Math.floor(Math.random() * publicStories.length);
-        setDisplayedStory(publicStories[randomIndex]); // <- step 3
+        setDisplayedStory(publicStories[randomIndex]); 
       } catch (err) {
         console.error('Error fetching stories:', err);
       }
     };
 
-    fetchRandomStory(); // <- step 2
-  }, []); // empty array = only run once when component mounts
+    fetchRandomStory(); 
+  }, []);
 
   const handleSearch = (criteria) => {
     alert("Search Request:\n" + JSON.stringify({ search: criteria }, null, 2));

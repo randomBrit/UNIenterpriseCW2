@@ -9,6 +9,7 @@ function Submit() {
     author: '',
     genre: '',
     content: '',
+    isPublic: true,
   });
 
   const handleChange = (e) => {
@@ -101,6 +102,14 @@ function Submit() {
             required
           />
         </Form.Group>
+        <Form.Check 
+          type="checkbox"
+          label="Make this story public"
+          checked={story.isPublic}
+          onChange={(e) =>
+            setStory(prev => ({ ...prev, isPublic: e.target.checked }))
+          }
+        />
         <Button variant="primary" type="submit" className="mt-3">
           Submit Story
         </Button>
