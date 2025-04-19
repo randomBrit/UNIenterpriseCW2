@@ -3,21 +3,31 @@ import { Container, Row, Col } from 'react-bootstrap';
 import StoryCard from '../components/StoryCard';
 import SearchPanel from '../components/SearchPanel';
 
-function Home() {
+function Home({ user }) {
   const [displayedStory, setDisplayedStory] = useState(null); 
+  const isLoggedIn = !!user;
 
   useEffect(() => {
-    const getRandomPublicStory = (stories, isLoggedIn) => {
-      const visible = isLoggedIn
-        ? stories
-        : stories.filter(story => story.isPublic);
-    
-      const index = Math.floor(Math.random() * visible.length);
-      return visible[index];
+    const fetchStories = async () => {
+      try {
+        const res = await fetch('/api/stories');
+        const stories = await res.json();
+
+        const visibleStories = isLoggedIn
+          ? stories
+          : stories.filter(story => story.isPublic);
+
+        if (visibleStories.length > 0) {
+          const index = Math.floor(Math.random() * visibleStories.length);
+          setDisplayedStory(visibleStories[index]);
+        }
+      } catch (err) {
+        console.error('Failed to fetch stories:', err);
+      }
     };
 
-    getRandomPublicStory(); 
-  }, []);
+    fetchStories();
+  }, [isLoggedIn]);
 
   const handleSearch = (criteria) => {
     alert("Search Request:\n" + JSON.stringify({ search: criteria }, null, 2));
