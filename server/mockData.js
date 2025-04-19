@@ -1,4 +1,4 @@
-const stories = [
+const mockStories = [
   {
     "title": "Last Exit to Eden",
     "author": "Sierra Vale",
