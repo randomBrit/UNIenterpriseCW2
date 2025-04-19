@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import StoryCard from "../components/StoryCard";
 import SearchPanel from "../components/SearchPanel";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 function StorySearch() {
   const [results, setResults] = useState([]);
