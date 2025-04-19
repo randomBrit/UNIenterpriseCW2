@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import StoryCard from "../components/StoryCard";
 import SearchPanel from "../components/SearchPanel";
+import { useAuth } from "../context/AuthContext";
 
 function StorySearch() {
   const [results, setResults] = useState([]);
   const [allStories, setAllStories] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchStories = async () => {
