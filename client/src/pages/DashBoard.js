@@ -23,10 +23,18 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`/api/stories/${id}`, { method: 'DELETE' });
-      setStories(prev => prev.filter(story => story.id !== id));
+      const res = await fetch(`/api/stories/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (res.ok) {
+        // ✅ Remove story from UI
+        setUserStories(prev => prev.filter(story => story.id !== id));
+      } else {
+        console.error("Delete failed:", await res.text());
+      }
     } catch (err) {
-      console.error('Failed to delete story:', err);
+      console.error("Error deleting story:", err);
     }
   };
 

@@ -7,20 +7,16 @@ function Home() {
   const [displayedStory, setDisplayedStory] = useState(null); 
 
   useEffect(() => {
-    const fetchRandomStory = async () => {
-      try {
-        const res = await fetch('/api/stories');
-        const stories = await res.json();
-
-        const publicStories = stories.filter(s => s.isPublic !== false);
-        const randomIndex = Math.floor(Math.random() * publicStories.length);
-        setDisplayedStory(publicStories[randomIndex]); 
-      } catch (err) {
-        console.error('Error fetching stories:', err);
-      }
+    const getRandomPublicStory = (stories, isLoggedIn) => {
+      const visible = isLoggedIn
+        ? stories
+        : stories.filter(story => story.isPublic);
+    
+      const index = Math.floor(Math.random() * visible.length);
+      return visible[index];
     };
 
-    fetchRandomStory(); 
+    getRandomPublicStory(); 
   }, []);
 
   const handleSearch = (criteria) => {
