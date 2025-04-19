@@ -9,14 +9,16 @@ function StorySearch() {
 
   useEffect(() => {
     const fetchStories = async () => {
-      try {
-        const res = await fetch('/api/stories');
-        const data = await res.json();
-        setResults(data);
-        setAllStories(data);
-      } catch (err) {
-        console.error('Failed to fetch stories:', err);
-      }
+      const isLoggedIn = !!user;
+    
+      const url = isLoggedIn
+        ? '/api/stories'
+        : '/api/stories?publicOnly=true';
+    
+      const res = await fetch(url);
+      const data = await res.json();
+      setResults(data);
+      setAllStories(data);
     };
 
     fetchStories();
