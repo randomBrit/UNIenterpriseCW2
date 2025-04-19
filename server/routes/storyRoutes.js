@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import mockStories from '../mockStories';
+import mockStories from '../mockData.js';
 
 
 // TEMP in-memory store for now
