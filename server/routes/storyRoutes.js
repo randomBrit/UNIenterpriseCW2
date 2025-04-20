@@ -1,7 +1,7 @@
 // server/routes/storyRoutes.js
 import express from 'express';
 import fetch from 'node-fetch';
-import db from '../firebaseAdmin.js';
+import db from '../firebaseadmin.js';
 
 const router = express.Router();
 
