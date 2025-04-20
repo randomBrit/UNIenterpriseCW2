@@ -32,7 +32,11 @@ useEffect(() => {
     const filtered = data.filter(story => {
       return (
         (genre === "All" || story.genre === genre) &&
-        story.rating >= minimum_rating
+        const storyRating = typeof story.rating === 'number'
+          ? story.rating
+          : story.rating?.average ?? 0;
+
+        storyRating >= minimum_rating
       );
     });
 
