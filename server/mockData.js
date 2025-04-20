@@ -1,4 +1,4 @@
-[
+const mockStories = [
   {
     "id": "1",
     "title": "Last Exit to Eden",
