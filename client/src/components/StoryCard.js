@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 function StoryCard({ story }) {
 
-  console.log("story.rating on mount", story.rating);//added this as a debug, fixed the problem so it stays
+  //console.log("story.rating on mount", story.rating);//added this as a debug, fixed the problem so it stays
 
   const [hoveredStar, setHoveredStar] = useState(0);
   const [selectedStar, setSelectedStar] = useState(null);
