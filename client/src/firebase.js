@@ -10,9 +10,6 @@ const firebaseConfig = {
   appId: "1:763481741706:web:318b28ae72c462e0b55073"
 };
 
-
-
-
 //#const firebaseConfig = {
 //#    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 //#    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
