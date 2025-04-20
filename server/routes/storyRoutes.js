@@ -71,9 +71,11 @@ router.post('/:id/rate', (req, res) => {
     story.rating = { entries: [] };
   }
 
-  const alreadyRated = story.rating.entries.some((entry) => entry.rater === rater);
-  if (alreadyRated) {
-    return res.status(403).json({ error: "You have already rated this story" });
+  const existingIndex = story.rating.entries.findIndex((entry) => entry.rater === rater);
+  if (existingIndex >= 0) {
+    story.rating.entries[existingIndex].rating = rating;
+  } else {
+    story.rating.entries.push({ rater, rating });
   }
 
   story.rating.entries.push({ rater, rating });
