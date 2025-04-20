@@ -20,13 +20,24 @@ export function AuthProvider({ children }) {
       }
     };
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUser(user);
+        setLoading(false);
+      } else {
+        try {
+          const result = await getRedirectResult(auth);
+          if (result?.user) {
+            setUser(result.user);
+          }
+        } catch (err) {
+          console.error('Redirect sign-in error:', err);
+        } finally {
+          setLoading(false);
+        }
+      }
     });
-
-    resolveRedirect();
-
+  
     return () => unsubscribe();
   }, []);
 
