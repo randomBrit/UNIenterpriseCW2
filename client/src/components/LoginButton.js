@@ -1,17 +1,22 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { auth, provider } from '../firebase';
-import { signInWithRedirect , signOut } from 'firebase/auth';
+import { signInWithRedirect, signInWithPopup, signOut } from 'firebase/auth';
 import { useAuth } from '../contexts/AuthContext';
 
 function LoginButton() {
   const { currentUser: user, setUser } = useAuth();
+  const isDev = process.env.REACT_APP_ENV === 'development';
 
   const handleLogin = async () => {
     try {
-      await signInWithRedirect(auth, provider);
+      if (isDev) {
+        await signInWithPopup(auth, provider);
+      } else {
+        await signInWithRedirect(auth, provider);
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Login error:', error);
     }
   };
 
@@ -20,7 +25,7 @@ function LoginButton() {
       await signOut(auth);
       setUser(null);
     } catch (error) {
-      console.error(error);
+      console.error('Logout error:', error);
     }
   };
 
