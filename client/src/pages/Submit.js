@@ -20,9 +20,16 @@ function Submit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+    const recaptchaToken = window.grecaptcha.getResponse();
+    if (!recaptchaToken) {
+      alert("Please complete the CAPTCHA.");
+      return;
+    }
+  
     const submittedStory = {
       ...story,
       authorId: currentUser?.uid,
+      'g-recaptcha-response': recaptchaToken,
     };
   
     try {
@@ -34,11 +41,11 @@ function Submit() {
         body: JSON.stringify(submittedStory),
       });
   
-      const text = await res.text(); // get raw response first
+      const text = await res.text();
       let data;
   
       try {
-        data = JSON.parse(text); // attempt to parse manually
+        data = JSON.parse(text);
       } catch (jsonErr) {
         console.error('Invalid JSON response:', text);
         throw new Error('Server returned invalid JSON');
@@ -47,7 +54,8 @@ function Submit() {
       if (res.ok) {
         alert('Story submitted successfully!');
         console.log('New Story:', data.story);
-        setStory({ title: '', author: '', genre: '', content: '' });
+        setStory({ title: '', author: '', genre: '', content: '', isPublic: true });
+        window.grecaptcha.reset(); // ✅ Reset CAPTCHA for next submit
       } else {
         console.error('Backend error:', data.message || text);
         alert(`Submission failed: ${data.message || text}`);
@@ -113,7 +121,7 @@ function Submit() {
             setStory(prev => ({ ...prev, isPublic: e.target.checked }))
           }
         />
-        <div class="g-recaptcha" data-sitekey="6LcmrR4rAAAAAMxswwJslCbob4m8qqOPHdPGo7vJ"></div>
+        <div className="g-recaptcha" data-sitekey="6LcmrR4rAAAAAMxswwJslCbob4m8qqOPHdPGo7vJ"></div>
         <Button variant="primary" type="submit" className="mt-3">
           Submit Story
         </Button>
