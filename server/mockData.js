@@ -252,3 +252,5 @@
     "isPublic": true
   }
 ]
+
+export default mockStories;
