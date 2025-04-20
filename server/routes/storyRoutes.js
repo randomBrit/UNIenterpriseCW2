@@ -55,4 +55,35 @@ router.delete('/:id', (req, res) => {
   res.json({ message: 'Story deleted', story: deleted });
 });
 
+router.post('/:id/rate', (req, res) => {
+  const { id } = req.params;
+  const { rater, rating } = req.body;
+
+  if (!rater || typeof rating !== "number" || rating < 0 || rating > 5) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+
+  const story = stories.find((s) => s.id === id);
+  if (!story) return res.status(404).json({ error: "Story not found" });
+
+  // Initialize rating array if missing
+  if (!story.rating || !Array.isArray(story.rating.entries)) {
+    story.rating = { entries: [] };
+  }
+
+  const alreadyRated = story.rating.entries.some((entry) => entry.rater === rater);
+  if (alreadyRated) {
+    return res.status(403).json({ error: "You have already rated this story" });
+  }
+
+  story.rating.entries.push({ rater, rating });
+
+  const sum = story.rating.entries.reduce((acc, cur) => acc + cur.rating, 0);
+  const average = sum / story.rating.entries.length;
+
+  story.rating.average = parseFloat(average.toFixed(1));
+
+  return res.json({ rating: story.rating });
+});
+
 export default router;

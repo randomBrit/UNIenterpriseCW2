@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { getOrCreateSessionId } from "../utils/session";
+import { useAuth } from "../contexts/AuthContext";
 
 function StoryCard({ story }) {
 
@@ -10,6 +12,8 @@ function StoryCard({ story }) {
   const [localRatings, setLocalRatings] = useState(
     Array.isArray(story.rating?.entries) ? story.rating.entries : []
   );
+
+  const { user } = useAuth();
   
   const averageRating =
     localRatings.length > 0
@@ -19,17 +23,31 @@ function StoryCard({ story }) {
         ).toFixed(1)
       : "Not rated";
 
-  const handleRate = (rating) => {
-    // Simulate rater ID
-    const newRating = { rater: "guest_" + Date.now(), rating };
-    const updatedRatings = [...localRatings, newRating];
-    setLocalRatings(updatedRatings);
-    setSelectedStar(rating);
-
-    // Replace this with API POST call later
-    console.log("Rated story:", story.title, "with", rating);
-    
-  };
+      const handleRate = async (rating) => {
+        const raterId = user?.uid || getOrCreateSessionId();
+        const newRating = { rater: raterId, rating };
+      
+        try {
+          const res = await fetch(`/api/stories/${story.id}/rate`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newRating),
+          });
+      
+          if (!res.ok) {
+            const { error } = await res.json();
+            throw new Error(error || "Failed to submit rating");
+          }
+      
+          const updated = await res.json();
+          setLocalRatings(updated.rating.entries);
+          setSelectedStar(rating);
+        } catch (err) {
+          console.error("Error submitting rating:", err);
+        }
+      };
 
   const renderStars = () => {
     const maxStars = 5;
