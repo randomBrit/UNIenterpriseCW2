@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCW1sCSW91kAIFdIvS70oy0ibLFfRYWZTY",
@@ -10,6 +11,7 @@ const firebaseConfig = {
   appId: "1:763481741706:web:318b28ae72c462e0b55073"
 };
 
+//this stopped working at some point
 //#const firebaseConfig = {
 //#    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 //#    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -20,8 +22,9 @@ const firebaseConfig = {
 //#  };
 
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
 
-  export { auth, provider };
+export { auth, provider, db };
