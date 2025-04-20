@@ -59,7 +59,10 @@ function Submit() {
   };
 
   return (
+    
+
     <Container className="my-5">
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       <h1 className="text-center mb-4">Submit a Microfiction Story</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formTitle">
@@ -110,6 +113,7 @@ function Submit() {
             setStory(prev => ({ ...prev, isPublic: e.target.checked }))
           }
         />
+        <div class="g-recaptcha" data-sitekey="6LcmrR4rAAAAAMxswwJslCbob4m8qqOPHdPGo7vJ"></div>
         <Button variant="primary" type="submit" className="mt-3">
           Submit Story
         </Button>
