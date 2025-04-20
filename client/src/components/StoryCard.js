@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 
 function StoryCard({ story }) {
+  
+  console.log("story.rating on mount", story.rating);
+
   const [hoveredStar, setHoveredStar] = useState(0);
   const [selectedStar, setSelectedStar] = useState(null);
-  const [localRatings, setLocalRatings] = useState(story.rating || []);
-
+  const [localRatings, setLocalRatings] = useState(
+    Array.isArray(story.rating?.entries) ? story.rating.entries : []
+  );
+  
   const averageRating =
     localRatings.length > 0
       ? (
