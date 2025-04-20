@@ -7,11 +7,32 @@ import mockStories from '../mockData.js';
 const stories = mockStories
   
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { title, author, genre, content, authorId, isPublic = true } = req.body;
+  const recaptchaToken = req.body['g-recaptcha-response'];
 
   if (!title || !content || !authorId) {
     return res.status(400).json({ message: 'Missing required fields.' });
+  }
+
+  // Validate reCAPTCHA token
+  if (!recaptchaToken) {
+    return res.status(400).json({ message: 'No reCAPTCHA token provided.' });
+  }
+
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+  const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+
+  try {
+    const response = await fetch(verifyUrl, { method: 'POST' });
+    const data = await response.json();
+
+    if (!data.success) {
+      return res.status(403).json({ message: 'reCAPTCHA verification failed.' });
+    }
+  } catch (err) {
+    console.error('reCAPTCHA error:', err);
+    return res.status(500).json({ message: 'Internal error during CAPTCHA check.' });
   }
 
   const newStory = {
@@ -21,14 +42,14 @@ router.post('/', (req, res) => {
     genre,
     content,
     authorId,
-    isPublic, 
-    rating: 0.0,
+    isPublic,
+    rating: { entries: [], average: 0.0 },
   };
 
-  console.log('New story received:', newStory);//test feature
+  console.log('New story received:', newStory);
   stories.push(newStory);
 
-  res.status(201).json({ message: 'Story submitted!', story: newStory });
+  return res.status(201).json({ message: 'Story submitted!', story: newStory });
 });
 
 router.get('/', (req, res) => {
@@ -87,5 +108,6 @@ router.post('/:id/rate', (req, res) => {
 
   return res.json({ rating: story.rating });
 });
+
 
 export default router;
