@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 
 function StoryCard({ story }) {
-  
-  console.log("story.rating on mount", story.rating);
+
+  console.log("story.rating on mount", story.rating);//added this as a debug, fixed the problem so it stays
 
   const [hoveredStar, setHoveredStar] = useState(0);
   const [selectedStar, setSelectedStar] = useState(null);
@@ -28,6 +28,7 @@ function StoryCard({ story }) {
 
     // Replace this with API POST call later
     console.log("Rated story:", story.title, "with", rating);
+    
   };
 
   const renderStars = () => {
