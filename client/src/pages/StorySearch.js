@@ -2,49 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import StoryCard from "../components/StoryCard";
 import SearchPanel from "../components/SearchPanel";
-import { useAuth } from "../contexts/AuthContext";
-import { useLocation } from "react-router-dom";
 
 function StorySearch() {
   const [results, setResults] = useState([]);
   const [allStories, setAllStories] = useState([]);
-  const { user } = useAuth();
-  const location = useLocation();
 
-  
-useEffect(() => {
-  const fetchStories = async () => {
-    const isLoggedIn = !!user;
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const res = await fetch('/api/stories');
+        const data = await res.json();
+        setResults(data);
+        setAllStories(data);
+      } catch (err) {
+        console.error('Failed to fetch stories:', err);
+      }
+    };
 
-    const url = isLoggedIn
-      ? '/api/stories'
-      : '/api/stories?publicOnly=true';
-
-    const res = await fetch(url);
-    const data = await res.json();
-    setAllStories(data);
-
-    // Run search logic here if there are URL params
-    const params = new URLSearchParams(location.search);
-    const genre = params.get("genre") || "All";
-    const minimum_rating = parseFloat(params.get("minimum_rating")) || 0;
-
-    const filtered = data.filter(story => {
-      return (
-        (genre === "All" || story.genre === genre) &&
-        const storyRating = typeof story.rating === 'number'
-          ? story.rating
-          : story.rating?.average ?? 0;
-
-        storyRating >= minimum_rating
-      );
-    });
-
-    setResults(filtered);
-  };
-
-  fetchStories();
-}, [user, location.search]);
+    fetchStories();
+  }, []);
 
   const genres = ["All", ...new Set(allStories.map(story => story.genre))];
 
@@ -52,10 +28,11 @@ useEffect(() => {
     const minRating = parseFloat(searchCriteria.minimum_rating);
     const safeMinRating = isNaN(minRating) ? 0 : minRating;
 
-    const filtered = allStories.filter(story => {
+    const filtered = data.filter(story => {
+      const avgRating = story.rating?.average || 0;
       return (
-        (searchCriteria.genre === "All" || story.genre === searchCriteria.genre) &&
-        story.rating >= safeMinRating
+        (genre === "All" || story.genre === genre) &&
+        avgRating >= minimum_rating
       );
     });
 
