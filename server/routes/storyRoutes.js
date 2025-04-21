@@ -119,4 +119,23 @@ router.post('/:id/rate', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const docRef = db.collection('stories').doc(id);
+    const doc = await docRef.get();
+
+    if (!doc.exists) {
+      return res.status(404).json({ message: 'Story not found' });
+    }
+
+    await docRef.delete();
+    res.json({ message: 'Story deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting story:', err);
+    res.status(500).json({ message: 'Failed to delete story' });
+  }
+});
+
 export default router;
