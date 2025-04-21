@@ -54,6 +54,13 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   const { authorId } = req.query;
+  const stories = snapshot.docs.map(doc => {
+    const data = doc.data();
+    if (!data.rating || !Array.isArray(data.rating.entries)) {
+      data.rating = { entries: [], average: 0.0 };
+    }
+    return { id: doc.id, ...data };
+  });
 
   try {
     let query = db.collection('stories');

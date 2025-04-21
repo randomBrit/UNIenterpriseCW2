@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { getOrCreateSessionId } from "../utils/session";
 import { useAuth } from "../contexts/AuthContext";
@@ -12,6 +12,14 @@ function StoryCard({ story }) {
   const [localRatings, setLocalRatings] = useState(
     Array.isArray(story.rating?.entries) ? story.rating.entries : []
   );
+
+  useEffect(() => {
+    const raterId = user?.uid || getOrCreateSessionId();
+    const existingRating = localRatings.find(r => r.rater === raterId);
+    if (existingRating) {
+      setSelectedStar(existingRating.rating);
+    }
+  }, [localRatings, user]);
 
   const { user } = useAuth();
   
