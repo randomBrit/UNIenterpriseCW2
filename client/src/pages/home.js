@@ -17,7 +17,7 @@ function Home({ user }) {
         const res = await fetch('/api/stories');
 
         const text = await res.text();//needed for de bug
-        console.log("Raw response from /api/stories:", text);//debug feature
+        //console.log("Raw response from /api/stories:", text);//debug feature
 
         const stories = await res.json();
 
