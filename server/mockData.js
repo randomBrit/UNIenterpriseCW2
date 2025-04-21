@@ -237,7 +237,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "16",
     "title": "The Pale Signal",
     "author": "Sierra Vale",
     "authorId": "user_abc123",
@@ -253,7 +252,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "17",
     "title": "Saltlight",
     "author": "Sierra Vale",
     "authorId": "user_abc123",
@@ -269,7 +267,6 @@ const mockStories = [
     "isPublic": false
   },
   {
-    "id": "18",
     "title": "Archive of Dust",
     "author": "Sierra Vale",
     "authorId": "user_abc123",
@@ -285,7 +282,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "19",
     "title": "Thorns of the Crownless",
     "author": "Nico Reyes",
     "authorId": "user_xyz789",
@@ -301,7 +297,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "20",
     "title": "Wyrm’s Hollow",
     "author": "Nico Reyes",
     "authorId": "user_xyz789",
@@ -317,7 +312,6 @@ const mockStories = [
     "isPublic": false
   },
   {
-    "id": "21",
     "title": "Glass Warden",
     "author": "Nico Reyes",
     "authorId": "user_xyz789",
@@ -333,7 +327,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "22",
     "title": "Copper Leviathan",
     "author": "Felix Ward",
     "authorId": "user_smn234",
@@ -349,7 +342,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "23",
     "title": "The Skylock Mechanism",
     "author": "Felix Ward",
     "authorId": "user_smn234",
@@ -365,7 +357,6 @@ const mockStories = [
     "isPublic": false
   },
   {
-    "id": "24",
     "title": "Brassheart",
     "author": "Felix Ward",
     "authorId": "user_smn234",
