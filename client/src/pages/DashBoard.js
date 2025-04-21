@@ -63,18 +63,18 @@ export default function Dashboard() {
           genre: editedGenre,
         }),
       });
-  
+
       if (!res.ok) {
         console.error('Failed to update story:', await res.text());
         return;
       }
-  
+
       const updatedStories = userStories.map((story) =>
         story.id === id
           ? { ...story, title: editedTitle, content: editedContent, genre: editedGenre }
           : story
       );
-  
+
       setUserStories(updatedStories);
       setEditingStoryId(null);
     } catch (err) {
@@ -95,85 +95,75 @@ export default function Dashboard() {
           <Card key={story.id} className="mb-3">
             <Card.Body>
               <Card.Title>{story.title}</Card.Title>
-              {/* MAJOR REWORK ZONE######################################################*/}
+
               {editingStoryId === story.id ? (
-  <form
-    onSubmit={(e) => {
-      e.preventDefault();
-      handleUpdate(story.id);
-    }}
-  >
-    <input
-      type="text"
-      className="form-control mb-2"
-      value={editedTitle}
-      onChange={(e) => setEditedTitle(e.target.value)}
-      placeholder="Title"
-    />
-    <textarea
-      className="form-control mb-2"
-      value={editedContent}
-      onChange={(e) => setEditedContent(e.target.value)}
-      placeholder="Content"
-    />
-    <input
-      type="text"
-      className="form-control mb-2"
-      value={editedGenre}
-      onChange={(e) => setEditedGenre(e.target.value)}
-      placeholder="Genre"
-    />
-    <Button type="submit" variant="success" size="sm" className="me-2">
-      Save
-    </Button>
-    <Button
-      variant="secondary"
-      size="sm"
-      onClick={() => setEditingStoryId(null)}
-    >
-      Cancel
-    </Button>
-  </form>
-) : (
-  <>
-    <Card.Text>{story.content}</Card.Text>
-    <Button
-      variant="outline-primary"
-      size="sm"
-      className="me-2"
-      onClick={() => {
-        setEditingStoryId(story.id);
-        setEditedTitle(story.title);
-        setEditedContent(story.content);
-        setEditedGenre(story.genre);
-      }}
-    >
-      Edit
-    </Button>
-    <Button
-      variant="outline-danger"
-      size="sm"
-      onClick={() => handleDelete(story.id)}
-    >
-      Delete
-    </Button>
-  </>
-)}
-{/* MAJOR REWORK ZONE*/}
-              <p>
-                <strong>Average Rating:</strong> ⭐ {story.rating?.average ?? 'Not rated'}<br />
-                <strong>Ratings Count:</strong> {story.rating?.entries?.length ?? 0}
-              </p>
-              <Button variant="outline-primary" size="sm" className="me-2">
-                Edit
-              </Button>
-              <Button
-                variant="outline-danger"
-                size="sm"
-                onClick={() => handleDelete(story.id)}
-              >
-                Delete
-              </Button>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleUpdate(story.id);
+                  }}
+                >
+                  <input
+                    type="text"
+                    className="form-control mb-2"
+                    value={editedTitle}
+                    onChange={(e) => setEditedTitle(e.target.value)}
+                    placeholder="Title"
+                  />
+                  <input
+                    type="text"
+                    className="form-control mb-2"
+                    value={editedGenre}
+                    onChange={(e) => setEditedGenre(e.target.value)}
+                    placeholder="Genre"
+                  />
+                  <textarea
+                    className="form-control mb-2"
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                    placeholder="Content"
+                  />
+                  <Button type="submit" variant="success" size="sm" className="me-2">
+                    Save
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => setEditingStoryId(null)}
+                  >
+                    Cancel
+                  </Button>
+                </form>
+              ) : (
+                <>
+                  <p>
+                    <strong>Average Rating:</strong> ⭐ {story.rating?.average ?? 'Not rated'}
+                    <br />
+                    <strong>Ratings Count:</strong> {story.rating?.entries?.length ?? 0}
+                  </p>
+                  <Card.Text>{story.content}</Card.Text>
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    className="me-2"
+                    onClick={() => {
+                      setEditingStoryId(story.id);
+                      setEditedTitle(story.title);
+                      setEditedContent(story.content);
+                      setEditedGenre(story.genre);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    onClick={() => handleDelete(story.id)}
+                  >
+                    Delete
+                  </Button>
+                </>
+              )}
             </Card.Body>
           </Card>
         ))
