@@ -3,10 +3,11 @@ import { Card } from "react-bootstrap";
 import { getOrCreateSessionId } from "../utils/session";
 import { useAuth } from "../contexts/AuthContext";
 
+
 function StoryCard({ story }) {
 
   //console.log("story.rating on mount", story.rating);//added this as a debug, fixed the problem so it stays
-
+  const { user } = useAuth();
   const [hoveredStar, setHoveredStar] = useState(0);
   const [selectedStar, setSelectedStar] = useState(null);
   const [localRatings, setLocalRatings] = useState(
@@ -21,7 +22,7 @@ function StoryCard({ story }) {
     }
   }, [localRatings, user]);
 
-  const { user } = useAuth();
+
   
   const averageRating =
     localRatings.length > 0
