@@ -235,6 +235,150 @@ const mockStories = [
       ]
     },
     "isPublic": true
+  },
+  {
+    "id": "16",
+    "title": "The Pale Signal",
+    "author": "Sierra Vale",
+    "authorId": "user_abc123",
+    "genre": "Dystopian",
+    "content": "The radios hadn’t worked in years—until the static whispered her name.",
+    "rating": {
+      "average": 3.6,
+      "entries": [
+        { "rater": "user_rss001", "rating": 3.4 },
+        { "rater": "user_rss002", "rating": 3.8 }
+      ]
+    },
+    "isPublic": true
+  },
+  {
+    "id": "17",
+    "title": "Saltlight",
+    "author": "Sierra Vale",
+    "authorId": "user_abc123",
+    "genre": "Dystopian",
+    "content": "They bathed in chemical oceans, searching for the last unburned sky.",
+    "rating": {
+      "average": 3.9,
+      "entries": [
+        { "rater": "user_rss003", "rating": 4.0 },
+        { "rater": "user_rss004", "rating": 3.8 }
+      ]
+    },
+    "isPublic": false
+  },
+  {
+    "id": "18",
+    "title": "Archive of Dust",
+    "author": "Sierra Vale",
+    "authorId": "user_abc123",
+    "genre": "Dystopian",
+    "content": "In the vault beneath the city, the forgotten memories began to hum.",
+    "rating": {
+      "average": 3.75,
+      "entries": [
+        { "rater": "user_rss005", "rating": 3.6 },
+        { "rater": "user_rss006", "rating": 3.9 }
+      ]
+    },
+    "isPublic": true
+  },
+  {
+    "id": "19",
+    "title": "Thorns of the Crownless",
+    "author": "Nico Reyes",
+    "authorId": "user_xyz789",
+    "genre": "Fantasy",
+    "content": "The prophecy named a queen—but he was born with the mark.",
+    "rating": {
+      "average": 4.4,
+      "entries": [
+        { "rater": "user_elf001", "rating": 4.5 },
+        { "rater": "user_elf002", "rating": 4.3 }
+      ]
+    },
+    "isPublic": true
+  },
+  {
+    "id": "20",
+    "title": "Wyrm’s Hollow",
+    "author": "Nico Reyes",
+    "authorId": "user_xyz789",
+    "genre": "Fantasy",
+    "content": "A dragon slumbers below the city—and the council wants to wake it.",
+    "rating": {
+      "average": 4.2,
+      "entries": [
+        { "rater": "user_elf003", "rating": 4.1 },
+        { "rater": "user_elf004", "rating": 4.3 }
+      ]
+    },
+    "isPublic": false
+  },
+  {
+    "id": "21",
+    "title": "Glass Warden",
+    "author": "Nico Reyes",
+    "authorId": "user_xyz789",
+    "genre": "Fantasy",
+    "content": "She could sculpt magic into glass—but only if she didn’t look away.",
+    "rating": {
+      "average": 4.6,
+      "entries": [
+        { "rater": "user_elf005", "rating": 4.7 },
+        { "rater": "user_elf006", "rating": 4.5 }
+      ]
+    },
+    "isPublic": true
+  },
+  {
+    "id": "22",
+    "title": "Copper Leviathan",
+    "author": "Felix Ward",
+    "authorId": "user_smn234",
+    "genre": "Steampunk",
+    "content": "The machine god rose from the trench—and it wanted a pilot.",
+    "rating": {
+      "average": 4.3,
+      "entries": [
+        { "rater": "user_gear001", "rating": 4.4 },
+        { "rater": "user_gear002", "rating": 4.2 }
+      ]
+    },
+    "isPublic": true
+  },
+  {
+    "id": "23",
+    "title": "The Skylock Mechanism",
+    "author": "Felix Ward",
+    "authorId": "user_smn234",
+    "genre": "Steampunk",
+    "content": "Time unraveled slowly, but he could feel the gears start to grind.",
+    "rating": {
+      "average": 4.15,
+      "entries": [
+        { "rater": "user_gear003", "rating": 4.1 },
+        { "rater": "user_gear004", "rating": 4.2 }
+      ]
+    },
+    "isPublic": false
+  },
+  {
+    "id": "24",
+    "title": "Brassheart",
+    "author": "Felix Ward",
+    "authorId": "user_smn234",
+    "genre": "Steampunk",
+    "content": "She wound her heart each morning, afraid one day it wouldn’t start.",
+    "rating": {
+      "average": 4.5,
+      "entries": [
+        { "rater": "user_gear005", "rating": 4.6 },
+        { "rater": "user_gear006", "rating": 4.4 }
+      ]
+    },
+    "isPublic": true
   }
 ]
 
