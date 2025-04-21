@@ -15,6 +15,10 @@ function Home({ user }) {
     const fetchStories = async () => {
       try {
         const res = await fetch('/api/stories');
+
+        const text = await res.text();//needed for de bug
+        console.log("Raw response from /api/stories:", text);//debug feature
+
         const stories = await res.json();
 
         const visibleStories = isLoggedIn
