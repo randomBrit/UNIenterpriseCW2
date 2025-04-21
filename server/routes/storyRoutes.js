@@ -54,6 +54,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   const { authorId } = req.query;
+  const snapshot = await query.get();
   const stories = snapshot.docs.map(doc => {
     const data = doc.data();
     if (!data.rating || !Array.isArray(data.rating.entries)) {
