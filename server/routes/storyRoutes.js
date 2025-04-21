@@ -54,14 +54,6 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   const { authorId } = req.query;
-  const snapshot = await query.get();
-  const stories = snapshot.docs.map(doc => {
-    const data = doc.data();
-    if (!data.rating || !Array.isArray(data.rating.entries)) {
-      data.rating = { entries: [], average: 0.0 };
-    }
-    return { id: doc.id, ...data };
-  });
 
   try {
     let query = db.collection('stories');
@@ -72,23 +64,19 @@ router.get('/', async (req, res) => {
     }
 
     const snapshot = await query.get();
-    const stories = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const stories = snapshot.docs.map(doc => {
+      const data = doc.data();
+      //fallback structure in case rating is missing
+      if (!data.rating || !Array.isArray(data.rating.entries)) {
+        data.rating = { entries: [], average: 0.0 };
+      }
+      return { id: doc.id, ...data };
+    });
+
     res.json(stories);
   } catch (err) {
     console.error('Error fetching stories:', err);
     res.status(500).json({ message: 'Failed to fetch stories' });
-  }
-});
-
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    await db.collection('stories').doc(id).delete();
-    res.json({ message: 'Story deleted' });
-  } catch (err) {
-    console.error('Error deleting story:', err);
-    res.status(500).json({ message: 'Failed to delete story' });
   }
 });
 
