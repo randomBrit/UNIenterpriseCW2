@@ -94,6 +94,8 @@ function StoryCard({ story }) {
 
         <div className="mb-2">
           <strong>Average Rating:</strong> ⭐ {averageRating}
+          <br />
+          <small>{localRatings.length} rating{localRatings.length !== 1 ? "s" : ""}</small>
         </div>
 
         <div>
