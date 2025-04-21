@@ -138,4 +138,30 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, content, genre, isPublic } = req.body;
+
+  try {
+    const storyRef = db.collection('stories').doc(id);
+    const doc = await storyRef.get();
+
+    if (!doc.exists) {
+      return res.status(404).json({ message: 'Story not found' });
+    }
+
+    const updates = {};
+    if (title !== undefined) updates.title = title;
+    if (content !== undefined) updates.content = content;
+    if (genre !== undefined) updates.genre = genre;
+    if (isPublic !== undefined) updates.isPublic = isPublic;
+
+    await storyRef.update(updates);
+    res.json({ message: 'Story updated successfully' });
+  } catch (err) {
+    console.error('Error updating story:', err);
+    res.status(500).json({ message: 'Failed to update story' });
+  }
+});
+
 export default router;
