@@ -1,6 +1,5 @@
 const mockStories = [
   {
-    "id": "1",
     "title": "Last Exit to Eden",
     "author": "Sierra Vale",
     "authorId": "user_abc123",
@@ -17,7 +16,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "2",
     "title": "The Ember Crown",
     "author": "Nico Reyes",
     "authorId": "user_xyz789",
@@ -33,7 +31,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "3",
     "title": "Echoes of the Ninth Moon",
     "author": "Haley Quinn",
     "authorId": "user_jkl456",
@@ -51,7 +48,6 @@ const mockStories = [
     "isPublic": false
   },
   {
-    "id": "4",
     "title": "Letters to Nowhere",
     "author": "Tobias Glen",
     "authorId": "user_def234",
@@ -67,7 +63,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "5",
     "title": "The Hollow Pact",
     "author": "D.M. Corvin",
     "authorId": "user_lmn888",
@@ -84,7 +79,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "6",
     "title": "Static Dreams",
     "author": "Aria Chen",
     "authorId": "user_hzq010",
@@ -100,7 +94,6 @@ const mockStories = [
     "isPublic": false
   },
   {
-    "id": "7",
     "title": "Under Painted Skies",
     "author": "Rowan Black",
     "authorId": "user_uvw321",
@@ -118,7 +111,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "8",
     "title": "Gallows Creek",
     "author": "Mira Dalton",
     "authorId": "user_ghr567",
@@ -135,7 +127,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "9",
     "title": "Clockwork Hearts",
     "author": "Felix Ward",
     "authorId": "user_smn234",
@@ -151,7 +142,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "10",
     "title": "Beneath Crimson Leaves",
     "author": "Evelyn Hart",
     "authorId": "user_bft982",
@@ -169,7 +159,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "11",
     "title": "Infinite Carousel",
     "author": "Zane Holloway",
     "authorId": "user_xce100",
@@ -185,7 +174,6 @@ const mockStories = [
     "isPublic": false
   },
   {
-    "id": "12",
     "title": "Nocturne Protocol",
     "author": "Kira Leone",
     "authorId": "user_klo321",
@@ -201,7 +189,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "13",
     "title": "The Library of Bones",
     "author": "Orin Hale",
     "authorId": "user_zzz111",
@@ -218,7 +205,6 @@ const mockStories = [
     "isPublic": true
   },
   {
-    "id": "14",
     "title": "Neon Ashes",
     "author": "Delilah Storm",
     "authorId": "user_pqr654",
@@ -235,7 +221,6 @@ const mockStories = [
     "isPublic": false
   },
   {
-    "id": "15",
     "title": "Fragments of Silence",
     "author": "Leo Amar",
     "authorId": "user_ytv333",
