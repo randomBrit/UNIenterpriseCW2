@@ -1,1 +1,0 @@
-running setup.sh from inside a repo as cloned by set up.sh will cause problems, including a repo recursion, just dont.
