@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "seed": "node --no-warnings --loader=esm ./utils/seedMockData.js"
+    "seed": "node --no-warnings ./utils/seedMockData.js"
   },
   "keywords": [],
   "author": "",
