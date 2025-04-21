@@ -13,43 +13,66 @@ function StorySearch() {
         const res = await fetch('/api/stories');
         const data = await res.json();
         setAllStories(data);
-  
-        // Apply filters from URL params
+
         const params = new URLSearchParams(window.location.search);
         const genre = params.get("genre") || "All";
         const minimum_rating = parseFloat(params.get("minimum_rating")) || 0;
-  
-        const filtered = data.filter(story => {
-          const avgRating = story.rating?.average || 0;
-          return (
-            (genre === "All" || story.genre === genre) &&
-            avgRating >= minimum_rating
-          );
-        });
-  
+        const sortBy = params.get("sortBy") || "story";
+
+        const filtered = filterAndSortStories(data, genre, minimum_rating, sortBy);
         setResults(filtered);
       } catch (err) {
         console.error('Failed to fetch stories:', err);
       }
     };
-  
+
     fetchStories();
   }, [window.location.search]);
 
   const genres = ["All", ...new Set(allStories.map(story => story.genre))];
 
-  const handleSearch = (searchCriteria) => {
-    const minRating = parseFloat(searchCriteria.minimum_rating);
+  const filterAndSortStories = (stories, genre, minRating, sortBy) => {
     const safeMinRating = isNaN(minRating) ? 0 : minRating;
 
-    const filtered = allStories.filter(story => {
+    let filtered = stories.filter(story => {
       const avgRating = story.rating?.average || 0;
-      return (
-        (searchCriteria.genre === "All" || story.genre === searchCriteria.genre) &&
-        avgRating >= safeMinRating
-      );
+      return (genre === "All" || story.genre === genre) && avgRating >= safeMinRating;
     });
 
+    if (sortBy === "author") {
+      const authorRatings = {};
+      const authorCounts = {};
+
+      stories.forEach(story => {
+        const avg = story.rating?.average || 0;
+        if (!authorRatings[story.authorId]) {
+          authorRatings[story.authorId] = 0;
+          authorCounts[story.authorId] = 0;
+        }
+        authorRatings[story.authorId] += avg;
+        authorCounts[story.authorId] += 1;
+      });
+
+      const authorAverages = {};
+      Object.keys(authorRatings).forEach(id => {
+        authorAverages[id] = authorRatings[id] / authorCounts[id];
+      });
+
+      filtered.sort((a, b) => {
+        const aAvg = authorAverages[a.authorId] || 0;
+        const bAvg = authorAverages[b.authorId] || 0;
+        return bAvg - aAvg;
+      });
+    } else {
+      filtered.sort((a, b) => (b.rating?.average || 0) - (a.rating?.average || 0));
+    }
+
+    return filtered;
+  };
+
+  const handleSearch = (searchCriteria) => {
+    const { genre, minimum_rating, sortBy } = searchCriteria;
+    const filtered = filterAndSortStories(allStories, genre, minimum_rating, sortBy);
     setResults(filtered);
   };
 

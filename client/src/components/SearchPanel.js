@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 function SearchPanel({ genres, onSearch }) {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [minimumRating, setMinimumRating] = useState(0);
+  const [sortBy, setSortBy] = useState('story'); // new
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSearch({
       genre: selectedGenre,
-      minimum_rating: minimumRating
+      minimum_rating: minimumRating,
+      sortBy,
     });
   };
 
@@ -39,6 +41,25 @@ function SearchPanel({ genres, onSearch }) {
           onChange={(e) => setMinimumRating(parseFloat(e.target.value))}
         />
         <div>{minimumRating.toFixed(1)} / 5</div>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="sortByToggle">
+        <Form.Label>Sort By</Form.Label>
+        <div>
+          <ToggleButtonGroup
+            type="radio"
+            name="sortBy"
+            value={sortBy}
+            onChange={setSortBy}
+          >
+            <ToggleButton id="sort-story" value="story" variant="outline-primary">
+              Story Rating
+            </ToggleButton>
+            <ToggleButton id="sort-author" value="author" variant="outline-secondary">
+              Author Rating
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
       </Form.Group>
 
       <Button variant="primary" type="submit" className="w-100">
