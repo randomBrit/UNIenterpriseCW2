@@ -11,23 +11,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// 🔐 Decode & write service account
-if (process.env.FIREBASE_KEY_BASE64) {
-  const decodedKey = Buffer.from(process.env.FIREBASE_KEY_BASE64, 'base64').toString('utf-8');
-  const serviceAccountPath = path.resolve('./serviceAccountKey.json');
-  fs.writeFileSync(serviceAccountPath, decodedKey);
-  console.log('✅ Firebase key decoded and written to', serviceAccountPath);
-
-  // 🔥 Initialize Firebase
-  admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(decodedKey)),
-  });
-
-  console.log('✅ Firebase Admin initialized');
-} else {
-  console.warn('⚠️ FIREBASE_KEY_BASE64 not set — Firebase may fail.');
-}
-
 // Middleware
 app.use(cors());
 app.use(express.json());
