@@ -20,7 +20,7 @@ if (process.env.FIREBASE_KEY_BASE64) {
 
   // 🔥 Initialize Firebase
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccountPath),
+    credential: admin.credential.cert(JSON.parse(decodedKey)),
   });
 
   console.log('✅ Firebase Admin initialized');
