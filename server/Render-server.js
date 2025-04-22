@@ -57,8 +57,14 @@ try {
   console.error('❌ Error serving static React files:', err);
 }
 
-console.log('Express version:', require('express/package.json').version);
-console.log('path-to-regexp version:', require('path-to-regexp/package.json').version);
+try {
+  const expressPkg = await import('express/package.json');
+  const pathToRegexpPkg = await import('path-to-regexp/package.json');
+  console.log('📦 Express version:', expressPkg.default.version);
+  console.log('📦 path-to-regexp version:', pathToRegexpPkg.default.version);
+} catch (err) {
+  console.warn('⚠️ Could not load package versions:', err);
+}
 
 // Start server
 try {
