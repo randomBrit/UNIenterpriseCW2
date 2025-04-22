@@ -46,7 +46,7 @@ try {
 
   if (process.env.NODE_ENV === 'production' && fs.existsSync(buildPath)) {
     app.use(express.static(buildPath));
-    app.get('/*', (req, res) => {
+    app.get('*', (req, res) => {
       res.sendFile(path.join(buildPath, 'index.html'));
     });
     console.log('✅ React frontend served statically');
@@ -57,21 +57,10 @@ try {
   console.error('❌ Error serving static React files:', err);
 }
 
-// Route logger
-try {
-  app._router.stack
-    .filter(r => r.route)
-    .forEach(r => {
-      console.log('📍 Route:', r.route.path);
-    });
-} catch (err) {
-  console.error('❌ Error listing routes:', err);
-}
-
 // Start server
 try {
   app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running on port${PORT}`);
   });
 } catch (err) {
   console.error('❌ Error starting server:', err);
