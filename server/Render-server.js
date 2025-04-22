@@ -40,7 +40,7 @@ try {
 
 // Static file serving
 try {
-  const buildPath = path.join(__dirname, '../client/build');
+  const buildPath = path.join(__dirname, '../client/public');
   console.log('🔍 React build path:', buildPath);
   console.log('📦 Build exists?', fs.existsSync(buildPath));
 
