@@ -2,13 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -23,38 +23,32 @@ app.use((req, res, next) => {
 });
 
 // Routes
+let storyRoutes;
 try {
-  import('./routes/storyRoutes.js')
-    .then(storyRoutes => {
-      app.use('/api/stories', storyRoutes.default);
-    })
-    .catch(err => {
-      console.error('❌ Failed to load story routes:', err);
-    });
+  storyRoutes = await import('./routes/storyRoutes.js');
+  app.use('/api/stories', storyRoutes.default);
 } catch (err) {
-  console.error('❌ Error setting up routes:', err);
+  console.error('❌ Failed to load story routes:', err);
 }
 
 // Base route
-try {
-  app.get('/', (req, res) => res.send('API is running'));
-} catch (err) {
-  console.error('❌ Error setting root route:', err);
+app.get('/', (req, res) => res.send('API is running'));
+
+// Static file serving
+const buildPath = path.join(__dirname, '../client/build');
+console.log('🔍 React build path:', buildPath);
+console.log('📦 Build exists?', fs.existsSync(buildPath));
+
+if (process.env.NODE_ENV === 'production' && fs.existsSync(buildPath)) {
+  app.use(express.static(buildPath));
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+} else {
+  console.warn('⚠️ No React build found or not in production');
 }
 
-// Static file serving for production
-if (process.env.NODE_ENV === 'production') {
-  try {
-    app.use(express.static(path.join(__dirname, '../client/build')));
-    app.get('/*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-    });
-  } catch (err) {
-    console.error('❌ Error serving static React files:', err);
-  }
-}
-
-// Log registered routes
+// Log all registered routes
 try {
   app._router.stack
     .filter(r => r.route)
@@ -65,7 +59,7 @@ try {
   console.error('❌ Error listing routes:', err);
 }
 
-// Start server
+// Start the server
 try {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
