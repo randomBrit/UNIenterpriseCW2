@@ -46,7 +46,7 @@ try {
 
   if (process.env.NODE_ENV === 'production' && fs.existsSync(buildPath)) {
     app.use(express.static(buildPath));
-    app.get('*', (req, res) => {
+    app.get(/^\/(?!api).*/, (req, res) => {
       res.sendFile(path.join(buildPath, 'index.html'));
     });
     console.log('✅ React frontend served statically');
@@ -56,6 +56,9 @@ try {
 } catch (err) {
   console.error('❌ Error serving static React files:', err);
 }
+
+console.log('Express version:', require('express/package.json').version);
+console.log('path-to-regexp version:', require('path-to-regexp/package.json').version);
 
 // Start server
 try {
