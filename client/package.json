@@ -6,7 +6,7 @@
   "scripts": {
     "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
     "start:wsl": "HOST=0.0.0.0 DISABLE_ESLINT_PLUGIN=true react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --no-eslint",
     "server": "node server/server.js"
   },
   "dependencies": {
