@@ -42,6 +42,12 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+app._router.stack
+  .filter(r => r.route)
+  .forEach(r => {
+    console.log('📍 Route:', r.route.path);
+  });
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
