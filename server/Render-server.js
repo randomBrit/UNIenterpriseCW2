@@ -1,9 +1,13 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import fs from 'fs';
 import path from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+//i had these for a reason right?
+import mongoose from 'mongoose';
+import fs from 'fs';
 import admin from 'firebase-admin';
 
 dotenv.config();
