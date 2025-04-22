@@ -22,33 +22,42 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
-let storyRoutes;
+// Load routes
 try {
-  storyRoutes = await import('./routes/storyRoutes.js');
+  const storyRoutes = await import('./routes/storyRoutes.js');
   app.use('/api/stories', storyRoutes.default);
+  console.log('✅ Story routes loaded');
 } catch (err) {
   console.error('❌ Failed to load story routes:', err);
 }
 
 // Base route
-app.get('/', (req, res) => res.send('API is running'));
-
-// Static file serving
-const buildPath = path.join(__dirname, '../client/build');
-console.log('🔍 React build path:', buildPath);
-console.log('📦 Build exists?', fs.existsSync(buildPath));
-
-if (process.env.NODE_ENV === 'production' && fs.existsSync(buildPath)) {
-  app.use(express.static(buildPath));
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
-} else {
-  console.warn('⚠️ No React build found or not in production');
+try {
+  app.get('/', (req, res) => res.send('API is running'));
+} catch (err) {
+  console.error('❌ Error setting base route:', err);
 }
 
-// Log all registered routes
+// Static file serving
+try {
+  const buildPath = path.join(__dirname, '../client/build');
+  console.log('🔍 React build path:', buildPath);
+  console.log('📦 Build exists?', fs.existsSync(buildPath));
+
+  if (process.env.NODE_ENV === 'production' && fs.existsSync(buildPath)) {
+    app.use(express.static(buildPath));
+    app.get('/*', (req, res) => {
+      res.sendFile(path.join(buildPath, 'index.html'));
+    });
+    console.log('✅ React frontend served statically');
+  } else {
+    console.warn('⚠️ Not serving React build - missing or not in production');
+  }
+} catch (err) {
+  console.error('❌ Error serving static React files:', err);
+}
+
+// Route logger
 try {
   app._router.stack
     .filter(r => r.route)
@@ -59,7 +68,7 @@ try {
   console.error('❌ Error listing routes:', err);
 }
 
-// Start the server
+// Start server
 try {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
