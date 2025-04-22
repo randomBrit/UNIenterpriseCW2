@@ -33,7 +33,7 @@ try {
 
 // Base route
 try {
-  app.get('/', (req, res) => res.send('API is running'));
+  app.get('/apitest', (req, res) => res.send('API is running'));
 } catch (err) {
   console.error('❌ Error setting base route:', err);
 }
