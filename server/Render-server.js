@@ -40,7 +40,7 @@ try {
 
 // Static file serving
 try {
-  const buildPath = path.join(__dirname, '../client/public');
+  const buildPath = path.join(__dirname, '../client/build');
   console.log('🔍 React build path:', buildPath);
   console.log('📦 Build exists?', fs.existsSync(buildPath));
 
@@ -58,10 +58,10 @@ try {
 }
 
 try {
-  const expressPkg = await import('express/package.json');
-  const pathToRegexpPkg = await import('path-to-regexp/package.json');
-  console.log('📦 Express version:', expressPkg.default.version);
-  console.log('📦 path-to-regexp version:', pathToRegexpPkg.default.version);
+  //const expressPkg = await import('express/package.json');
+  //const pathToRegexpPkg = await import('path-to-regexp/package.json');
+  //console.log('📦 Express version:', expressPkg.default.version);
+  //console.log('📦 path-to-regexp version:', pathToRegexpPkg.default.version);
 } catch (err) {
   console.warn('⚠️ Could not load package versions:', err);
 }
