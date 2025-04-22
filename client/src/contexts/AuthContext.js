@@ -8,17 +8,17 @@ export function AuthProvider({ children }) {
   const [currentUser, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const resolveRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result?.user) {
-          setUser(result.user);
-        }
-      } catch (err) {
-        console.error('Redirect sign-in error:', err);
-      }
-    };
+//  useEffect(() => {
+//    const resolveRedirect = async () => {
+//      try {
+//        const result = await getRedirectResult(auth);
+//        if (result?.user) {
+//          setUser(result.user);
+//        }
+//      } catch (err) {
+//        console.error('Redirect sign-in error:', err);
+//      }
+//    };
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
