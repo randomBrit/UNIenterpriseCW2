@@ -4,11 +4,6 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-//i had these for a reason right?
-import mongoose from 'mongoose';
-import fs from 'fs';
-import admin from 'firebase-admin';
-
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
